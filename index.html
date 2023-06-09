@@ -61,46 +61,46 @@
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
                   <a
+                    id="nav-about"
                     class="nav-link active"
                     aria-current="page"
                     href="#"
-                    onclick="showSection('about')"
                     >About</a
                   >
                 </li>
                 <li class="nav-item">
                   <a
+                    id="nav-displayAll"
                     class="nav-link active"
                     aria-current="page"
                     href="#"
-                    onclick="showSection('displayAll')"
                     >Display all</a
                   >
                 </li>
                 <li class="nav-item">
                   <a
+                    id="nav-add"
                     class="nav-link active"
                     aria-current="page"
                     href="#"
-                    onclick="showSection('add')"
                     >Add Student</a
                   >
                 </li>
                 <li class="nav-item">
                   <a
+                    id="nav-update"
                     class="nav-link active"
                     aria-current="page"
                     href="#"
-                    onclick="showSection('update')"
                     >Update Student</a
                   >
                 </li>
                 <li class="nav-item">
                   <a
+                    id="nav-delete"
                     class="nav-link active"
                     aria-current="page"
                     href="#"
-                    onclick="showSection('delete')"
                     >Delete Student</a
                   >
                 </li>
@@ -120,18 +120,12 @@
                     aria-labelledby="offcanvasNavbarDropdown"
                   >
                     <li>
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        onclick="showSection('searchById')"
+                      <a id="nav-searchById" class="dropdown-item" href="#"
                         >By Id</a
                       >
                     </li>
                     <li>
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        onclick="showSection('searchByName')"
+                      <a id="nav-searchByName" class="dropdown-item" href="#"
                         >By Name</a
                       >
                     </li>
@@ -145,17 +139,17 @@
     </header>
 
     <main class="pt-2 mt-5 mh-100">
-      <section id="home-section" class="text-center mx-auto pt-5">
+      <section id="section-home" class="text-center mx-auto pt-5">
         <div class="text-center">
           <h5>Welcome to student service app</h5>
         </div>
       </section>
 
-      <section id="about-section">
+      <section id="section-about">
         <h5>About</h5>
       </section>
 
-      <section id="displayAll-section" class="container-fluid px-2 pt-3">
+      <section id="section-displayAll" class="container-fluid px-2 pt-3">
         <h5 class="text-info text-center">Student List</h5>
         <hr />
         <div class="px-4">
@@ -180,7 +174,7 @@
         </div>
       </section>
 
-      <section id="add-section" class="vh-70">
+      <section id="section-add" class="vh-70">
         <div class="row">
           <div class="col-1 col-lg-3"></div>
           <div
@@ -197,7 +191,7 @@
                     >ID</label
                   >
                   <div class="col-sm-10">
-                    <input type="number" class="form-control" id="number" />
+                    <input type="number" class="form-control" id="stuid" />
                   </div>
                 </div>
                 <div class="row mb-lg-3 mb-md-2 mb-1">
@@ -205,11 +199,19 @@
                     >Name</label
                   >
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      placeholder="Enter student name"
+                    />
                   </div>
                 </div>
                 <div class="row mb-lg-3 mb-md-2 mb-1">
-                  <label for="name" class="col-sm-2 col-form-label text-start"
+                  <label
+                    for="name"
+                    class="col-sm-2 col-form-label text-start"
+                    placeholder="Ënter student age"
                     >Age</label
                   >
                   <div class="col-sm-10">
@@ -219,15 +221,21 @@
                       id="age"
                       min="15"
                       max="60"
+                      placeholder="Enter student age"
                     />
                   </div>
                 </div>
                 <div class="row mb-lg-3 mb-md-2 mb-1">
-                  <label for="name" class="col-sm-2 col-form-label text-start"
+                  <label for="mob" class="col-sm-2 col-form-label text-start"
                     >Mobile</label
                   >
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="mob" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="mob"
+                      placeholder="Enter student's mobile number"
+                    />
                   </div>
                 </div>
                 <div class="row mb-lg-3 mb-md-2 mb-1">
@@ -235,7 +243,12 @@
                     >Address</label
                   >
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="addr" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="addr"
+                      placeholder="Enter student's address"
+                    />
                   </div>
                 </div>
               </div>
@@ -249,7 +262,7 @@
         </div>
       </section>
 
-      <section id="update-section" class="vh-70">
+      <section id="section-update" class="vh-70">
         <h5>Update Student Details</h5>
         <hr />
 
@@ -342,7 +355,7 @@
         </div>
       </section>
 
-      <section id="delete-section" class="vh-70">
+      <section id="section-delete" class="vh-70">
         <h5>Delete Student</h5>
         <hr />
 
@@ -437,7 +450,7 @@
         </div>
       </section>
 
-      <section id="searchById-section" class="vh-70">
+      <section id="section-searchById" class="vh-70">
         <h5>Search Student By Id</h5>
         <div class="row my-5">
           <div class="col-lg-4 col-2"></div>
@@ -543,7 +556,7 @@
         </div>
       </section>
 
-      <section id="searchByName-section" class="vh-70">
+      <section id="section-searchByName" class="vh-70">
         <h5>Search Student By Name</h5>
         <div class="row my-5">
           <div class="col-lg-4 col-2"></div>
