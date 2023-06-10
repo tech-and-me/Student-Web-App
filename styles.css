@@ -22,7 +22,12 @@ body{
 
 h5{
     font-family: 'Exo', sans-serif;
-    font-size:x-large;
+    font-size:larger;
+    letter-spacing: 2px;
+    color: #5e5f61; 
+    font-weight: 900;
+	 text-transform: uppercase;
+    
 }
 
 form button{
@@ -30,6 +35,11 @@ form button{
     font-weight: 700!important;
     font-size: small!important;
 }
+
+.btn-info:hover {
+	background-color: #03708c;
+	color: rgb(247, 244, 244);
+ }
 
 input::placeholder {
     font-style: italic;
@@ -63,12 +73,14 @@ main section{
 thead{
     font-weight: lighter;
     font-size: small;
+    text-align: left;
 }
 
 tbody{
-    font-weight: lighter;
+    font-weight:600;
     font-size: small;
-    color: #000;
+    color: #071468;
+    text-align: left;
 }
 
 .navbar-nav .nav-link {
