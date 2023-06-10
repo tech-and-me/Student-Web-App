@@ -53,14 +53,24 @@ $(document).ready(function () {
 
    function handleOnDisplayAll() {
       console.log("Inside handleOnDisplayAll");
+      hideStudentInfoDiv();
+      hideStudentNotFound();
+
       // Fetch students data
       fetchAllStudents()
          .done(function (students) {
             console.log(students);
-            // Display student data
-            displayStudentsTable(students);
+            if (students == null || students.length == 0) {
+               showStudentNotFound();
+               hideStudentInfoDiv();
+            } else {
+               hideStudentNotFound();
+               showStudentInfoDiv(students, "section-displayAll");
+            }
          })
          .fail(function (xhr, status, error) {
+            hideStudentInfoDiv();
+            showStudentNotFound();
             console.log(error);
          });
    }
@@ -82,13 +92,13 @@ $(document).ready(function () {
    function handleOnDelete() {}
 
    function handleOnSearchById() {
-      hideStudentInfoTable();
+      hideStudentInfoForm();
       hideStudentNotFound();
 
       $(".form-searchById").submit(function (event) {
          event.preventDefault();
          //get search input
-         let searchId = getSearchInput();
+         let searchId = getSearchInput("section-searchById");
 
          //fetch studentFromBackend
          fetchStudentById(searchId)
@@ -100,18 +110,49 @@ $(document).ready(function () {
             .fail(function (xhr, status, error) {
                console.log(error);
                showStudentNotFound();
-               hideStudentInfoTable();
+               hideStudentInfoForm();
             });
       });
    }
-   function handleOnSearchByName() {}
+   function handleOnSearchByName() {
+      hideStudentInfoDiv();
+      hideStudentNotFound();
+
+      $(".form-searchByName").submit(function (event) {
+         event.preventDefault();
+         //get search input
+         let searchName = getSearchInput("section-searchByName");
+         console.log(
+            "Search name passing to fetchStudentByName : " + searchName
+         );
+         //fetch studentFromBackend
+         fetchStudentByName(searchName)
+            .done(function (students) {
+               console.log(students);
+               if (students == null || students.length == 0) {
+                  showStudentNotFound(); // working
+                  hideStudentInfoDiv();
+               } else {
+                  hideStudentNotFound(); // working
+                  showStudentInfoDiv(students, "section-searchByName");
+               }
+            })
+            .fail(function (xhr, status, error) {
+               hideStudentInfoDiv();
+               showStudentNotFound();
+               console.log(error);
+            });
+      });
+   }
 
    //--------Utitlity functions-----------------
-   function displayStudentsTable(students) {
-      console.log("inside displayStudentsTable");
-      const $tableBody = $("#section-displayAll tbody");
-      $tableBody.empty();
+   function constructStudentTableBody(students, sectionId) {
+      console.log("inside constructStudentTableBody");
+      // Render table head
 
+      // Render table body
+      const $tableBody = $(`#${sectionId} tbody`);
+      $tableBody.empty();
       students.forEach((student) => {
          const $row = $("<tr>");
          $row.html(`
@@ -216,11 +257,12 @@ $(document).ready(function () {
       );
 
       $divStudentInfo.append($divBody);
-      showStudentInfoTable();
+      showStudentInfoForm();
    }
 
-   function getSearchInput() {
-      let searchInput = $(".searchField").val();
+   function getSearchInput(sectionId) {
+      let searchInput = $(`#${sectionId} .searchField`).val();
+      console.log("Search input function return: " + searchInput);
       return searchInput;
    }
 
@@ -276,33 +318,44 @@ $(document).ready(function () {
    }
 
    function fetchStudentByName(name) {
-      console.log("Inside get student by name");
+      console.log("Inside fetch student by name");
       return $.ajax({
          type: "GET",
-         url: "http://localhost:9900/students/name/{name}",
+         url: "http://localhost:9900/students/name/" + name,
       });
    }
 
    function hideStudentNotFound() {
       console.log("inside hideStudentNotFound");
       // $(".error").hide(); // this doesnt work. not sure why.
-      $(".error").empty();
+      $(".notFound").empty();
    }
 
    function showStudentNotFound() {
       console.log("Inside show studentNotFound");
-      $(".error").append(` <h4 class="error d-flex align-items-center">
+      const $notFoundDiv = $(".notFound");
+      $notFoundDiv.empty();
+      $notFoundDiv.append(` <h4 class="error d-flex align-items-center">
       <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
       Ooop! Student not found
    </h4>
       `);
    }
 
-   function hideStudentInfoTable() {
+   function hideStudentInfoForm() {
       $(".div-student-info").hide();
    }
 
-   function showStudentInfoTable() {
+   function showStudentInfoForm() {
       $(".div-student-info").show();
+   }
+
+   function hideStudentInfoDiv() {
+      $(".studentInfoDiv").hide();
+   }
+
+   function showStudentInfoDiv(students, sectionId) {
+      constructStudentTableBody(students, sectionId);
+      $(".studentInfoDiv").show();
    }
 }); //end of document.ready
