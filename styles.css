@@ -15,9 +15,15 @@ body{
     height: 100%;
     background-position:center center;
     background-attachment: fixed;
-    color: rgb(146, 234, 234);
+    color: rgb(134, 241, 241);
     padding: 0;
     margin: 0;
+}
+
+hr{
+background-color: #71788b;
+height: 2px;
+border: none;
 }
 
 h5{
@@ -28,6 +34,47 @@ h5{
     font-weight: 900;
 	 text-transform: uppercase;
     
+}
+
+.navbar-nav .nav-link {
+	text-align: start;
+}
+
+.navbar-nav .nav-link:hover {
+	background-color: #525355; 
+	color: #000; 
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner-slow {
+  animation: spin 1.5s linear infinite; /* Adjust the duration as needed */
+}
+
+main{
+	display: block;
+}
+
+main section{
+	min-height: 75vh;
+	min-width: 75vw;
+	max-width: 70rem;
+	padding: 0.2rem;
+	font-weight: lighter;
+	margin: 2rem auto;
+	justify-content: center;
+	text-align: center;
+}
+
+form label{
+	font-size: small!important;
+}
+
+form p{
+	font-size: small;
 }
 
 form button{
@@ -41,37 +88,16 @@ form button{
 	color: rgb(247, 244, 244);
  }
 
+.searchField{
+	font-weight: 900!important;
+}
+
 input::placeholder {
     font-style: italic;
     font-weight: 700!important;
     font-size: small;
   }
   
-
-
-form label{
-    font-size: small!important;
-}
-
-form p{
-    font-size: small;
-}
-
-main{
-    display: block;
-}
-
-main section{
-    min-height: 75vh;
-    min-width: 75vw;
-    max-width: 70rem;
-    padding: 0.2rem;
-    font-weight: lighter;
-    margin: 2rem auto;
-    justify-content: center;
-    text-align: center;
-}
-
 thead{
     font-weight: lighter;
     font-size: small;
@@ -81,27 +107,10 @@ thead{
 tbody{
     font-weight:600;
     font-size: small;
-    color: #071468;
+    color: #14172f;
     text-align: left;
 }
 
-.navbar-nav .nav-link {
-    text-align: start;
-}
-
-.navbar-nav .nav-link:hover {
-    background-color: #525355; 
-    color: #000; 
-}
-
-@keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
-}
-
-.spinner-slow {
-	animation: spin 1.5s linear infinite; /* Adjust the duration as needed */
-}
 
 
 
