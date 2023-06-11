@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,200;1,100&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 
 *{
     margin: 0;
@@ -16,7 +16,7 @@ body{
     background-position:center center;
     background-attachment: fixed;
     color: rgb(134, 241, 241);
-    padding: 0;
+    padding:0;
     margin: 0;
 }
 
@@ -34,6 +34,15 @@ h5{
     font-weight: 900;
 	 text-transform: uppercase;
     
+}
+
+.navbar-brand{
+	color: #6d7777!important; 
+	font-weight: 900;
+	font-size:medium;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	
 }
 
 .navbar-nav .nav-link {
@@ -56,6 +65,7 @@ h5{
 
 main{
 	display: block;
+	padding: 2rem!important;
 }
 
 main section{
@@ -68,6 +78,15 @@ main section{
 	justify-content: center;
 	text-align: center;
 }
+
+#section-home {
+	background-image: url('https://images.unsplash.com/photo-1611241893603-3c359704e0ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+	background-size: cover;
+	background-position: center;
+	min-height: 50rem; 
+	padding: 0;
+	
+ }
 
 form label{
 	font-size: small!important;
@@ -106,13 +125,25 @@ thead{
 
 tbody{
     font-weight:600;
-    font-size: small;
+    font-size: smaller;
     color: #14172f;
     text-align: left;
 }
 
 
 
+footer{
+	position: fixed;
+	bottom: 0px;
+	margin: 0;
+  
+}
 
-
-
+footer p{
+	color: #8dacac; 
+	font-weight: 200;
+	font-size: small;
+	/* font-style: italic; */
+	font-family: 'Dancing Script', cursive;
+	letter-spacing: 1px;
+}

@@ -562,7 +562,7 @@ $(document).ready(function () {
       const selectedInputField = "#" + sectionId + " " + ".searchField";
       setTimeout(function () {
          $(selectedInputField).focus();
-      }, 700);
+      }, 600);
    }
 
    function showFormAddInfo(sectionId, student, stuid) {
