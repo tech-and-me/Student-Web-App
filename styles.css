@@ -92,4 +92,19 @@ tbody{
     color: #000; 
 }
 
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+.spinner-slow {
+	animation: spin 1.5s linear infinite; /* Adjust the duration as needed */
+}
+
+/* 
+.selected-field {
+   background-color: yellow;
+} */
+
+
 

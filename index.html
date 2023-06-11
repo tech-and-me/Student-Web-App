@@ -160,7 +160,13 @@
          </section>
 
          <section id="section-displayAll" class="container-fluid px-2 pt-3">
-            <div class="notFound d-flex justify-content-center">
+            <h5>Display All Students</h5>
+
+            <div class="spinner-border spinner-slow my-5" role="status">
+               <span class="visually-hidden">Loading...</span>
+            </div>
+
+            <div class="notFound d-flex justify-content-center my-5">
                <h4 class="d-flex align-items-center">
                   <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
                   Ooop! Student not found
@@ -315,7 +321,11 @@
                <div class="col-lg-4 col-2"></div>
             </div>
 
-            <div class="notFound d-flex justify-content-center">
+            <div class="spinner-border spinner-slow my-5" role="status">
+               <span class="visually-hidden">Loading...</span>
+            </div>
+
+            <div class="notFound d-flex justify-content-center my-5">
                <h4 class="d-flex align-items-center">
                   <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
                   Ooop! Student not found
@@ -438,7 +448,11 @@
                <div class="col-lg-4 col-2"></div>
             </div>
 
-            <div class="notFound d-flex justify-content-center">
+            <div class="spinner-border spinner-slow my-5" role="status">
+               <span class="visually-hidden">Loading...</span>
+            </div>
+
+            <div class="notFound d-flex justify-content-center my-5">
                <h4 class="d-flex align-items-center">
                   <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
                   Ooop! Student not found
@@ -554,18 +568,28 @@
                <div class="col-lg-4 col-2"></div>
                <div class="col-lg-4 col-8">
                   <form class="d-flex form-searchById">
-                     <input
-                        type="text"
-                        class="form-control me-2 searchField"
-                        placeholder="Enter student Id to search"
-                     />
+                     <div class="input-group">
+                        <input
+                           type="number"
+                           class="form-control searchField"
+                           placeholder="Enter student Id to search"
+                           required
+                        />
+                        <div class="invalid-feedback">
+                           Please enter a valid whole number.
+                        </div>
+                     </div>
                      <button type="submit" class="btn btn-info">Search</button>
                   </form>
                </div>
                <div class="col-lg-4 col-2"></div>
             </div>
 
-            <div class="notFound d-flex justify-content-center">
+            <div class="spinner-border spinner-slow my-5" role="status">
+               <span class="visually-hidden">Loading...</span>
+            </div>
+
+            <div class="notFound d-flex justify-content-center mt-5">
                <h4 class="d-flex align-items-center">
                   <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
                   Ooop! Student not found
@@ -679,7 +703,11 @@
                <div class="col-lg-4 col-2"></div>
             </div>
 
-            <div class="notFound d-flex justify-content-center">
+            <div class="spinner-border spinner-slow my-5" role="status">
+               <span class="visually-hidden">Loading...</span>
+            </div>
+
+            <div class="notFound d-flex justify-content-center my-5">
                <h4 class="d-flex align-items-center">
                   <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
                   Ooop! Student not found
