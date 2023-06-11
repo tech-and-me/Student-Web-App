@@ -46,6 +46,8 @@ input::placeholder {
     font-weight: 700!important;
     font-size: small;
   }
+  
+
 
 form label{
     font-size: small!important;
@@ -101,10 +103,7 @@ tbody{
 	animation: spin 1.5s linear infinite; /* Adjust the duration as needed */
 }
 
-/* 
-.selected-field {
-   background-color: yellow;
-} */
+
 
 
 

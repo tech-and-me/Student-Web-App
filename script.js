@@ -12,8 +12,8 @@ $(document).ready(function () {
          showOneSection(id);
       });
 
-   // Attach event listener to clear input field on click
-   $(".searchField").click(clearInputField);
+   // // Attach event listener to clear input field on click
+   // $(".searchField").click(clearInputField);
 
    //---------MAIN FUNCTIONS--------------------
 
@@ -56,8 +56,9 @@ $(document).ready(function () {
    }
 
    function handleOnDisplayAll() {
+      const sectionId = "section-displayAll";
       console.log("Inside handleOnDisplayAll");
-      hideStudentInfoDiv();
+      hideStudentsInfoDiv(sectionId);
       hideStudentNotFoundOrNull();
 
       // Fetch students data
@@ -66,14 +67,14 @@ $(document).ready(function () {
             console.log(students);
             if (students == null || students.length == 0) {
                showStudentNotFoundOrNull("No student in record.");
-               hideStudentInfoDiv();
+               hideStudentsInfoDiv(sectionId);
             } else {
                hideStudentNotFoundOrNull();
                showStudentInfoDiv(students, "section-displayAll");
             }
          })
          .fail(function (xhr, status, error) {
-            hideStudentInfoDiv();
+            hideStudentsInfoDiv(sectionId);
             showStudentNotFoundOrNull(
                "Ooop!Something went wrong. Try again later!"
             );
@@ -82,37 +83,32 @@ $(document).ready(function () {
    }
 
    function handleOnAdd() {
-      $(".form-add-info").submit(function (event) {
-         event.preventDefault();
-         //Get form data
-         let formData = getStudentFromForm();
-         console.log(formData);
-         sendStudentDataToBackend(formData);
-         // Reset the form
-         $(this).trigger("reset");
-      });
+      const sectionId = "section-add";
+      showFormAddInfo(sectionId, null);
    }
 
-   function handleOnUpdate() {}
-
-   function handleOnDelete() {}
-
-   function handleOnSearchById() {
-      hideStudentInfoForm();
+   function handleOnUpdate() {
+      const sectionId = "section-update";
       hideStudentNotFoundOrNull();
-      const sectionSearchById = "section-searchById";
-      setFocusOnSearchField(sectionSearchById);
+      setFocusOnSearchField(sectionId);
+      //clear inputfield on clicked
+      $(".searchField").click(function () {
+         clearInputField(sectionId);
+      });
 
-      $(".form-searchById").submit(function (event) {
+      hideFormAddInfo(sectionId);
+
+      $(`#${sectionId} .form-searchById`).submit(function (event) {
          event.preventDefault();
          //get search input
-         let searchStudentId = getSearchInput(sectionSearchById);
+         let searchStudentId = getSearchInput(sectionId);
+         console.log("seachStudentId " + searchStudentId);
 
          //fetch studentFromBackend
          fetchStudentById(searchStudentId)
             .done(function (student) {
                console.log(student);
-               displayOneStudentInfo(student);
+               showFormAddInfo(sectionId, student);
                hideStudentNotFoundOrNull();
             })
             .fail(function (xhr, status, error) {
@@ -124,14 +120,66 @@ $(document).ready(function () {
                   );
                }
                console.log(error);
-               hideStudentInfoForm();
+               console.log(
+                  "sectionSearchByID passing to hideStudentnforForm: " +
+                     sectionId
+               );
+               hideFormAddInfo(sectionId);
+            });
+      });
+   }
+
+   function handleOnDelete() {}
+
+   function handleOnSearchById() {
+      const sectionSearchById = "section-searchById";
+      hideStudentInfoForm(sectionSearchById);
+      hideStudentNotFoundOrNull();
+      setFocusOnSearchField(sectionSearchById);
+      //clear inputfield on clicked
+      $(".searchField").click(function () {
+         clearInputField(sectionSearchById);
+      });
+
+      $(".form-searchById").submit(function (event) {
+         event.preventDefault();
+         //get search input
+         let searchStudentId = getSearchInput(sectionSearchById);
+
+         //fetch studentFromBackend
+         fetchStudentById(searchStudentId)
+            .done(function (student) {
+               console.log(student);
+               displayOneStudentInfo(student, sectionSearchById);
+               hideStudentNotFoundOrNull();
+            })
+            .fail(function (xhr, status, error) {
+               if (xhr.status === 404) {
+                  showStudentNotFoundOrNull("Ooop! Student not found.");
+               } else {
+                  showStudentNotFoundOrNull(
+                     "Ooop! Something went wrong. Try again later!"
+                  );
+               }
+               console.log(error);
+               console.log(
+                  "sectionSearchByID passing to hideStudentnforForm: " +
+                     sectionSearchById
+               );
+               hideStudentInfoForm(sectionSearchById);
             });
       });
    }
    function handleOnSearchByName() {
-      hideStudentInfoDiv();
-      hideStudentNotFoundOrNull();
       const sectionIdOfSearchByName = "section-searchByName";
+      hideStudentsInfoDiv(sectionIdOfSearchByName);
+      hideStudentNotFoundOrNull();
+
+      //clear inputfield on clicked
+      $(".searchField").click(function () {
+         clearInputField(sectionIdOfSearchByName);
+      });
+
       setFocusOnSearchField(sectionIdOfSearchByName);
 
       $(".form-searchByName").submit(function (event) {
@@ -147,7 +195,7 @@ $(document).ready(function () {
                console.log(students);
                if (students == null || students.length == 0) {
                   showStudentNotFoundOrNull("Ooop! Student not found !");
-                  hideStudentInfoDiv();
+                  hideStudentsInfoDiv(sectionIdOfSearchByName);
                } else {
                   hideStudentNotFoundOrNull();
                   showStudentInfoDiv(students, "section-searchByName");
@@ -162,7 +210,7 @@ $(document).ready(function () {
                   );
                }
                console.log(error);
-               hideStudentInfoDiv();
+               hideStudentsInfoDiv(sectionIdOfSearchByName);
             });
       });
    }
@@ -187,8 +235,8 @@ $(document).ready(function () {
       });
    }
 
-   function displayOneStudentInfo(student) {
-      const $divStudentInfo = $(".div-student-info");
+   function displayOneStudentInfo(student, sectionId) {
+      const $divStudentInfo = $(`#${sectionId} .div-student-info`);
       $divStudentInfo.empty();
       const $divBody = $("<div>");
       $divBody.html(
@@ -288,23 +336,23 @@ $(document).ready(function () {
       return searchInput;
    }
 
-   function getStudentFromForm() {
+   function getStudentFromForm(formId) {
       console.log("Inside getStudentFromForm");
       let student = {
-         stuid: $("#stuid").val(),
-         name: $("#name").val(),
-         age: $("#age").val(),
-         mob: $("#mob").val(),
-         addr: $("#addr").val(),
+         stuid: $(`#${formId} #stuid`).val(),
+         name: $(`#${formId} #name`).val(),
+         age: $(`#${formId} #age`).val(),
+         mob: $(`#${formId} #mob`).val(),
+         addr: $(`#${formId} #addr`).val(),
       };
 
       return student;
    }
 
-   function sendStudentDataToBackend(formData) {
+   function sendStudentDataToBackend(formData, method) {
       console.log("Inside sendStudentDataToBackend");
       $.ajax({
-         type: "POST",
+         type: method,
          url: "http://localhost:9900/students",
          data: JSON.stringify(formData),
          contentType: "application/json",
@@ -373,16 +421,18 @@ $(document).ready(function () {
       `);
    }
 
-   function hideStudentInfoForm() {
-      $(".div-student-info").hide();
+   function hideStudentInfoForm(sectionId) {
+      $(`#${sectionId} .div-student-info`).hide();
    }
 
    function showStudentInfoForm() {
       $(".div-student-info").show();
    }
 
-   function hideStudentInfoDiv() {
-      $(".studentInfoDiv").hide();
+   function hideStudentsInfoDiv(sectionId) {
+      const selectedDiv = "#" + sectionId + " " + ".studentInfoDiv";
+      console.log("SelectedDiv is : " + selectedDiv);
+      $(selectedDiv).hide();
    }
 
    function showStudentInfoDiv(students, sectionId) {
@@ -398,11 +448,12 @@ $(document).ready(function () {
       $(".spinner-border").show();
    }
 
-   function clearInputField() {
+   function clearInputField(sectionId) {
+      console.log("Inside clearInputField");
       $(".searchField").val("");
       hideSpinner();
-      hideStudentInfoDiv();
-      hideStudentInfoForm();
+      hideStudentsInfoDiv(sectionId);
+      hideStudentInfoForm(sectionId);
       hideStudentNotFoundOrNull();
    }
 
@@ -412,5 +463,42 @@ $(document).ready(function () {
       setTimeout(function () {
          $(selectedInputField).focus();
       }, 1000);
+   }
+
+   function showFormAddInfo(sectionId, student) {
+      const selectedFormId = `#${sectionId} .form-add-info`;
+      console.log("Selected Form id : " + selectedFormId);
+      let method = "POST";
+      $(selectedFormId).closest("div").show();
+      if (sectionId === "section-update") {
+         // Set value of all form fields to the value of the student properties
+         Object.keys(student).forEach((property) => {
+            const fieldValue = student[property];
+            console.log("fieldValue : " + fieldValue);
+            $(selectedFormId).find(`[id="${property}"]`).val(fieldValue);
+         });
+
+         // Disable the form field with id "stuid"
+         $(selectedFormId)
+            .find("#stuid")
+            .prop("disabled", true)
+            .addClass("disableField bg-secondary text-light");
+
+         method = "PUT";
+      }
+
+      $(selectedFormId).submit(function (event) {
+         event.preventDefault();
+         //Get form data
+         let formData = getStudentFromForm(sectionId);
+         console.log(formData);
+         sendStudentDataToBackend(formData, method);
+         // Reset the form
+         $(this).trigger("reset");
+      });
+   }
+
+   function hideFormAddInfo(sectionId) {
+      $(`#${sectionId} .form-add-info`).closest("div").hide();
    }
 }); //end of document.ready

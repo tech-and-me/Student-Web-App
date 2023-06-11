@@ -162,11 +162,11 @@
          <section id="section-displayAll" class="container-fluid px-2 pt-3">
             <h5>Display All Students</h5>
 
-            <div class="spinner-border spinner-slow my-5" role="status">
+            <div class="spinner-border spinner-slow mt-5" role="status">
                <span class="visually-hidden">Loading...</span>
             </div>
 
-            <div class="notFound d-flex justify-content-center my-5">
+            <div class="notFound d-flex justify-content-center mt-5">
                <h4 class="d-flex align-items-center">
                   <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
                   Ooop! Student not found
@@ -222,6 +222,7 @@
                                  type="number"
                                  class="form-control"
                                  id="stuid"
+                                 required
                               />
                            </div>
                         </div>
@@ -237,6 +238,7 @@
                                  class="form-control"
                                  id="name"
                                  placeholder="Enter student name"
+                                 required
                               />
                            </div>
                         </div>
@@ -254,6 +256,7 @@
                                  id="age"
                                  min="15"
                                  max="60"
+                                 required
                                  placeholder="Enter student age"
                               />
                            </div>
@@ -269,6 +272,7 @@
                                  type="text"
                                  class="form-control"
                                  id="mob"
+                                 required
                                  placeholder="Enter student's mobile number"
                               />
                            </div>
@@ -306,13 +310,13 @@
             <h5>Update Student Details</h5>
             <hr />
 
-            <div class="row my-5">
+            <div class="row mt-5">
                <div class="col-lg-4 col-2"></div>
                <div class="col-lg-4 col-8">
                   <form class="d-flex form-searchById">
                      <input
                         type="text"
-                        class="form-control me-2"
+                        class="form-control me-2 searchField"
                         placeholder="Enter student Id to update"
                      />
                      <button type="submit" class="btn btn-info">Search</button>
@@ -321,11 +325,11 @@
                <div class="col-lg-4 col-2"></div>
             </div>
 
-            <div class="spinner-border spinner-slow my-5" role="status">
+            <div class="spinner-border spinner-slow mt-4" role="status">
                <span class="visually-hidden">Loading...</span>
             </div>
 
-            <div class="notFound d-flex justify-content-center my-5">
+            <div class="notFound d-flex justify-content-center">
                <h4 class="d-flex align-items-center">
                   <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
                   Ooop! Student not found
@@ -335,9 +339,9 @@
             <div class="row">
                <div class="col-1 col-lg-3"></div>
                <div
-                  class="col-10 col-lg-6 border border-1 border-secondary rounded-3 py-4 px-2 mt-2"
+                  class="col-10 col-lg-6 border border-1 border-secondary rounded-3 py-4 px-2 mt-5"
                >
-                  <form class="px-lg-4 px-2 form-update-info">
+                  <form class="px-lg-4 px-2 form-add-info">
                      <p>
                         Please enter student details to be updated in the form
                         below :
@@ -353,7 +357,8 @@
                               <input
                                  type="number"
                                  class="form-control"
-                                 id="number"
+                                 id="stuid"
+                                 name="stuid"
                               />
                            </div>
                         </div>
@@ -368,6 +373,7 @@
                                  type="text"
                                  class="form-control"
                                  id="name"
+                                 name="name"
                               />
                            </div>
                         </div>
@@ -384,6 +390,7 @@
                                  id="age"
                                  min="15"
                                  max="60"
+                                 name="age"
                               />
                            </div>
                         </div>
@@ -398,6 +405,7 @@
                                  type="text"
                                  class="form-control"
                                  id="mob"
+                                 name="mob"
                               />
                            </div>
                         </div>
@@ -412,6 +420,7 @@
                                  type="text"
                                  class="form-control"
                                  id="addr"
+                                 name="addr"
                               />
                            </div>
                         </div>
@@ -439,7 +448,7 @@
                   <form class="d-flex form-searchById">
                      <input
                         type="text"
-                        class="form-control me-2"
+                        class="form-control me-2 searchField"
                         placeholder="Enter student Id to delete"
                      />
                      <button type="submit" class="btn btn-info">Search</button>
@@ -564,7 +573,7 @@
 
          <section id="section-searchById" class="vh-70">
             <h5>Search Student By Id</h5>
-            <div class="row my-5">
+            <div class="row mt-5 mb-3">
                <div class="col-lg-4 col-2"></div>
                <div class="col-lg-4 col-8">
                   <form class="d-flex form-searchById">
@@ -589,7 +598,7 @@
                <span class="visually-hidden">Loading...</span>
             </div>
 
-            <div class="notFound d-flex justify-content-center mt-5">
+            <div class="notFound d-flex justify-content-center mt-3">
                <h4 class="d-flex align-items-center">
                   <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
                   Ooop! Student not found
@@ -688,7 +697,7 @@
 
          <section id="section-searchByName" class="vh-70">
             <h5>Search Student By Name</h5>
-            <div class="row my-5">
+            <div class="row mt-5">
                <div class="col-lg-4 col-2"></div>
                <div class="col-lg-4 col-8">
                   <form class="d-flex form-searchByName">
@@ -703,11 +712,11 @@
                <div class="col-lg-4 col-2"></div>
             </div>
 
-            <div class="spinner-border spinner-slow my-5" role="status">
+            <div class="spinner-border spinner-slow mt-5" role="status">
                <span class="visually-hidden">Loading...</span>
             </div>
 
-            <div class="notFound d-flex justify-content-center my-5">
+            <div class="notFound d-flex justify-content-center mt-5">
                <h4 class="d-flex align-items-center">
                   <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
                   Ooop! Student not found
