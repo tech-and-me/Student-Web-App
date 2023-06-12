@@ -12,9 +12,6 @@ $(document).ready(function () {
          showOneSection(id);
       });
 
-   // // Attach event listener to clear input field on click
-   // $(".searchField").click(clearInputField);
-
    //---------MAIN FUNCTIONS--------------------
 
    function showOneSection(navId) {
@@ -47,6 +44,7 @@ $(document).ready(function () {
             break;
          default:
             $("#section-home").show();
+            $("#floating-heading").addClass("float-middle");
       }
       console.log("#" + sectionId);
       $("#" + sectionId).show();
@@ -101,38 +99,33 @@ $(document).ready(function () {
          event.preventDefault();
          //get search input
          let searchStudentId = getSearchInput(sectionId);
-         if (searchStudentId == null) {
+         if (searchStudentId == null || searchStudentId == 0) {
+            showStudentNotFoundOrNull("Id cannot be null or zero.");
             return;
          }
-         console.log("seachStudentId " + searchStudentId);
 
          //fetch studentFromBackend
          fetchStudentById(searchStudentId)
             .done(function (student) {
-               console.log(student);
                showFormAddInfo(sectionId, student);
                hideStudentNotFoundOrNull();
             })
             .fail(function (xhr, status, error) {
-               if (xhr.status === 404) {
-                  showStudentNotFoundOrNull("Ooop! Student not found.");
+               if (xhr.status == 404 || status == 404) {
+                  showStudentNotFoundOrNull(
+                     "Uh-oh! It seems that the student is not in our records. <br> Please verify the information provided."
+                  );
                } else {
                   showStudentNotFoundOrNull(
                      "Ooop! Something went wrong. Try again later!"
                   );
                }
                console.log(error);
-               console.log(
-                  "sectionSearchByID passing to hideStudentnforForm: " +
-                     sectionId
-               );
-               // hideFormAddInfo(sectionId);
             });
       });
    }
 
    function handleOnDelete() {
-      console.log("Inside handle on Delete");
       const sectionId = "section-delete";
       hideStudentNotFoundOrNull();
       hideSuccessMessage(sectionId);
@@ -162,17 +155,15 @@ $(document).ready(function () {
             })
             .fail(function (xhr, status, error) {
                if (xhr.status === 404) {
-                  showStudentNotFoundOrNull("Ooop! Student not found.");
+                  showStudentNotFoundOrNull(
+                     "Oops! We couldn't find the student in our records"
+                  );
                } else {
                   showStudentNotFoundOrNull(
                      "Ooop! Something went wrong. Try again later!"
                   );
                }
                console.log(error);
-               console.log(
-                  "sectionSearchByID passing to hideStudentnforForm: " +
-                     sectionId
-               );
                hideFormAddInfo(sectionId);
             });
       });
@@ -205,7 +196,9 @@ $(document).ready(function () {
             })
             .fail(function (xhr, status, error) {
                if (xhr.status === 404) {
-                  showStudentNotFoundOrNull("Ooop! Student not found.");
+                  showStudentNotFoundOrNull(
+                     "Uh-oh! It seems that the student is not in our records.<br> Please verify the information provided.."
+                  );
                } else {
                   showStudentNotFoundOrNull(
                      "Ooop! Something went wrong. Try again later!"
@@ -248,7 +241,9 @@ $(document).ready(function () {
             .done(function (students) {
                console.log(students);
                if (students == null || students.length == 0) {
-                  showStudentNotFoundOrNull("Ooop! Student not found !");
+                  showStudentNotFoundOrNull(
+                     "Uh-oh! It seems that the student is not in our records. <br>Please verify the information provided."
+                  );
                   hideStudentsInfoDiv(sectionIdOfSearchByName);
                } else {
                   hideStudentNotFoundOrNull();
@@ -257,7 +252,9 @@ $(document).ready(function () {
             })
             .fail(function (xhr, status, error) {
                if (xhr.status === 404) {
-                  showStudentNotFoundOrNull("Ooop! Student not found.");
+                  showStudentNotFoundOrNull(
+                     "Uh-oh! It seems that the student is not in our records. <br> Please verify the information provided."
+                  );
                } else {
                   showStudentNotFoundOrNull(
                      "Ooop! Something went wrong. Try again later!"
@@ -271,9 +268,6 @@ $(document).ready(function () {
 
    //--------Utitlity functions-----------------
    function constructStudentTableBody(students, sectionId) {
-      console.log("inside constructStudentTableBody");
-      // Render table head
-
       // Render table body
       const $tableBody = $(`#${sectionId} tbody`);
       $tableBody.empty();
@@ -376,8 +370,6 @@ $(document).ready(function () {
                         </div>
                      </fieldset>
                   </form>
-   
-
       `
       );
 
@@ -390,31 +382,10 @@ $(document).ready(function () {
       let searchInput = $(searchInputSelector).val();
       console.log("Search input function return: " + searchInput);
       $(searchInputSelector).val("");
-
-      // if (!searchInput) {
-      //    displayNotificationMessage(sectionId, "Input cannot be empty");
-      //    return null;
-      // } else if (
-      //    sectionId === "section-update" &&
-      //    !Number.isInteger(Number(searchInput))
-      // ) {
-      //    displayNotificationMessage(sectionId, "Id must be an integer");
-      //    return null;
-      // } else if (
-      //    sectionId === "section-delete" &&
-      //    !Number.isInteger(Number(searchInput))
-      // ) {
-      //    displayNotificationMessage(sectionId, "Name must be text");
-      //    return null;
-      // } else {
-      //    return searchInput;
-      // }
-
       return searchInput;
    }
 
    function getStudentFromForm(formId) {
-      console.log("Inside getStudentFromForm");
       let student = {
          stuid: $(`#${formId} #stuid`).val(),
          name: $(`#${formId} #name`).val(),
@@ -428,13 +399,16 @@ $(document).ready(function () {
 
    function sendStudentDataToBackend(formData, method, sectionId, stuid) {
       console.log("Inside sendStudentDataToBackend");
-      let msg = "Student details is successfully added to our records";
+      let msg = "";
       let url = "http://localhost:9900/students";
       if (method == "DELETE") {
          url = `http://localhost:9900/students/${stuid}`;
-         msg = "student details is successfully deleted from our records";
-      } else if (method == "UPDATE") {
-         msg = "student details is successfully updated in our records.";
+         msg = "Done! We have removed the student details from our records";
+      } else if (method == "PUT") {
+         msg =
+            "Great news! The student details have been successfully updated in our records!";
+      } else {
+         msg = "Transaction completed";
       }
 
       // Disable the submit button
@@ -448,17 +422,18 @@ $(document).ready(function () {
          contentType: "application/json",
          success: function (response) {
             console.log(response);
+            if (method == "POST" && response.stuid) {
+               msg = `Hooray! The student details have been added to our records. <br>The ID assigned to this student is: ${response.stuid}`;
+            }
             displayNotificationMessage(sectionId, msg);
          },
          error: function (xhr, status, error) {
             console.log(error);
          },
          complete: function () {
-            //hideFormStudent
             if (method != "POST") {
                hideFormAddInfo(sectionId);
             }
-
             // Re-enable the submit button after the request is complete
             submitButton.prop("disabled", false);
          },
@@ -482,6 +457,7 @@ $(document).ready(function () {
       console.log("Student id send to backend : " + stuid);
       if (isNaN(stuid)) {
          console.error("Invalid student ID:", id);
+         // displayNotificationMessage()
          return;
       }
       console.log("Inside fetch student by id");
@@ -510,14 +486,15 @@ $(document).ready(function () {
       $(".notFound").empty();
    }
 
-   function showStudentNotFoundOrNull(msg) {
-      console.log("Inside show studentNotFound");
+   function showStudentNotFoundOrNull(
+      msg = "Uh-oh! Something went wrong ! Try again later."
+   ) {
       const $notFoundDiv = $(".notFound");
       $notFoundDiv.empty();
-      $notFoundDiv.append(` <h4 class="error d-flex align-items-center my-5">
+      $notFoundDiv.append(` <h6 class="notFound d-flex align-items-center my-5">
       <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
       ${msg}
-   </h4>
+   </h6>
       `);
    }
 
@@ -540,12 +517,24 @@ $(document).ready(function () {
       $(".studentInfoDiv").show();
    }
 
+   var spinnerTimer;
+
    function hideSpinner() {
       $(".spinner-border").hide();
+      clearTimeout(spinnerTimer);
    }
 
    function showSpinner() {
       $(".spinner-border").show();
+      spinnerTimer = setTimeout(function () {
+         hideSpinner();
+         // Check if the spinner is still visible
+         if ($(".spinner-border").is(":visible")) {
+            showStudentNotFoundOrNull(
+               "Hmmm... This is taking longer than expected.Please try again later."
+            );
+         }
+      }, 10000);
    }
 
    function clearInputField(sectionId) {
@@ -558,11 +547,10 @@ $(document).ready(function () {
    }
 
    function setFocusOnSearchField(sectionId) {
-      console.log("Inside setFocusOnSearchField");
       const selectedInputField = "#" + sectionId + " " + ".searchField";
       setTimeout(function () {
          $(selectedInputField).focus();
-      }, 600);
+      }, 900);
    }
 
    function showFormAddInfo(sectionId, student, stuid) {
@@ -623,27 +611,20 @@ $(document).ready(function () {
          .addClass("disableField bg-secondary text-light");
    }
 
-   function displayNotificationMessage(sectionId, msg) {
+   function displayNotificationMessage(
+      sectionId,
+      msg = "Hmm...something went wrong. try again later."
+   ) {
       const successDivId = `#${sectionId} .success`;
-
-      // Empty the successDivId
       $(successDivId).empty();
-
-      // Create the h4 element with the desired content
       const pElement = $("<p>")
          .addClass("d-flex align-items-center py-3")
          .append(
             $("<i>").addClass("fa-solid fa-circle-exclamation me-2 fa-2x"),
             msg
          );
-
-      // Append the h4 element to the successDivId
       $(successDivId).append(pElement);
-
-      // Show the successDivId
       $(successDivId).show();
-
-      // Set a timeout to hide the success message after the specified duration
       setTimeout(function () {
          hideSuccessMessage(sectionId);
       }, 3000);
@@ -655,14 +636,13 @@ $(document).ready(function () {
    }
 
    function cancelTransaction(sectionId) {
-      console.log("Inside cancelTransaction");
-
-      // const cancelButton = `#${sectionId} button[type="reset"]`;
-
       if (sectionId == "section-update" || sectionId == "section-delete") {
          hideFormAddInfo(sectionId);
       }
-      displayNotificationMessage(sectionId, "Transaction cancelled");
+      displayNotificationMessage(
+         sectionId,
+         "Transaction cancelled successfully!"
+      );
    }
 
    function clearFormAddInfo(sectionId) {

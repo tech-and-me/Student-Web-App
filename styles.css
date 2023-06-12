@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;1,100&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,200;1,100&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+
+
 
 *{
     margin: 0;
@@ -26,6 +31,8 @@ height: 2px;
 border: none;
 }
 
+
+
 h5{
     font-family: 'Exo', sans-serif;
     font-size:larger;
@@ -37,12 +44,11 @@ h5{
 }
 
 .navbar-brand{
-	color: #6d7777!important; 
-	font-weight: 900;
-	font-size:medium;
+	color: rgb(11, 175, 173)!important;
+	font-weight: 200;
+	font-size:larger;
 	letter-spacing: 1px;
-	text-transform: uppercase;
-	
+	font-family: 'Kaushan Script', cursive;
 }
 
 .navbar-nav .nav-link {
@@ -69,7 +75,7 @@ main{
 }
 
 main section{
-	min-height: 75vh;
+	min-height: 65vh;
 	min-width: 75vw;
 	max-width: 70rem;
 	padding: 0.2rem;
@@ -83,11 +89,34 @@ main section{
 	background-image: url('https://images.unsplash.com/photo-1611241893603-3c359704e0ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
 	background-size: cover;
 	background-position: center;
-	min-height: 50rem; 
-	padding: 0;
-	
- }
+	min-height: 10rem; 
+	padding: 0;	
+}
 
+#hero-heading {
+   position: relative;
+   bottom: 20%!important;
+   background-color: rgba(44, 44, 44, 0.55);
+   padding: 1.5rem 3rem;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.022); 
+   color: #d6e3e3; 
+   font-weight: 100;
+   font-family: 'Dancing Script', cursive;
+   letter-spacing: 1.5px;
+   font-size: larger;
+}
+
+#hero-heading span {
+   font-family: 'Kaushan Script', cursive;
+   font-weight: 600;
+   font-size: xx-large;
+   color: rgb(98, 195, 195);
+   letter-spacing: 1.5px;
+}
+
+#hero-heading hr{
+	background-color: #a3a6b9;
+}
 form label{
 	font-size: small!important;
 }
@@ -96,31 +125,36 @@ form p{
 	font-size: small;
 }
 
+.confirm{
+	font-size: medium;
+	color: white;
+}
+
 form button{
-    max-width: 5rem;
-    font-weight: 700!important;
-    font-size: small!important;
+   max-width: 5rem;
+   font-weight: 700!important;
+   font-size: small!important;
 }
 
 .btn-info:hover {
 	background-color: #03708c;
 	color: rgb(247, 244, 244);
- }
+}
 
 .searchField{
 	font-weight: 900!important;
 }
 
 input::placeholder {
-    font-style: italic;
-    font-weight: 700!important;
-    font-size: small;
-  }
-  
+	font-style: italic;
+   font-weight: 700!important;
+   font-size: small;
+}
+
 thead{
-    font-weight: lighter;
-    font-size: small;
-    text-align: left;
+   font-weight: lighter;
+   font-size: small;
+   text-align: left;
 }
 
 tbody{
@@ -131,7 +165,6 @@ tbody{
 }
 
 
-
 footer{
 	position: fixed;
 	bottom: 0px;
@@ -140,10 +173,9 @@ footer{
 }
 
 footer p{
-	color: #8dacac; 
-	font-weight: 200;
+	color: #19a2a2; 
+	font-weight: 100;
 	font-size: small;
-	/* font-style: italic; */
 	font-family: 'Dancing Script', cursive;
-	letter-spacing: 1px;
+	letter-spacing: 1.5px;
 }
