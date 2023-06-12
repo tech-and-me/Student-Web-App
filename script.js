@@ -61,7 +61,9 @@ $(document).ready(function () {
          .done(function (students) {
             console.log(students);
             if (students == null || students.length == 0) {
-               showStudentNotFoundOrNull("No student in record.");
+               showStudentNotFoundOrNull(
+                  "There are no student records available."
+               );
                hideStudentsInfoDiv(sectionId);
             } else {
                hideStudentNotFoundOrNull();
@@ -71,7 +73,7 @@ $(document).ready(function () {
          .fail(function (xhr, status, error) {
             hideStudentsInfoDiv(sectionId);
             showStudentNotFoundOrNull(
-               "Ooop!Something went wrong. Try again later!"
+               "Oops! something went wrong. Try again later!"
             );
             console.log(error);
          });
@@ -117,7 +119,7 @@ $(document).ready(function () {
                   );
                } else {
                   showStudentNotFoundOrNull(
-                     "Ooop! Something went wrong. Try again later!"
+                     "Oops! something went wrong. Try again later!"
                   );
                }
                console.log(error);
@@ -160,7 +162,7 @@ $(document).ready(function () {
                   );
                } else {
                   showStudentNotFoundOrNull(
-                     "Ooop! Something went wrong. Try again later!"
+                     "Oops! something went wrong. Try again later!"
                   );
                }
                console.log(error);
@@ -197,11 +199,11 @@ $(document).ready(function () {
             .fail(function (xhr, status, error) {
                if (xhr.status === 404) {
                   showStudentNotFoundOrNull(
-                     "Uh-oh! It seems that the student is not in our records.<br> Please verify the information provided.."
+                     "Uh-oh! It seems that the student is not in our records.<br>Please verify the information provided.."
                   );
                } else {
                   showStudentNotFoundOrNull(
-                     "Ooop! Something went wrong. Try again later!"
+                     "Oops! something went wrong. Try again later!"
                   );
                }
                console.log(error);
@@ -242,7 +244,7 @@ $(document).ready(function () {
                console.log(students);
                if (students == null || students.length == 0) {
                   showStudentNotFoundOrNull(
-                     "Uh-oh! It seems that the student is not in our records. <br>Please verify the information provided."
+                     "Uh-oh! It seems that the student is not in our records.<br>Please verify the information provided."
                   );
                   hideStudentsInfoDiv(sectionIdOfSearchByName);
                } else {
@@ -257,7 +259,7 @@ $(document).ready(function () {
                   );
                } else {
                   showStudentNotFoundOrNull(
-                     "Ooop! Something went wrong. Try again later!"
+                     "Oops! something went wrong. Try again later!"
                   );
                }
                console.log(error);
@@ -414,7 +416,6 @@ $(document).ready(function () {
       // Disable the submit button
       const submitButton = $(`#${sectionId} input[type="submit"]`);
       submitButton.prop("disabled", true);
-
       $.ajax({
          type: method,
          url: url,
@@ -422,8 +423,13 @@ $(document).ready(function () {
          contentType: "application/json",
          success: function (response) {
             console.log(response);
-            if (method == "POST" && response.stuid) {
-               msg = `Hooray! The student details have been added to our records. <br>The ID assigned to this student is: ${response.stuid}`;
+            if (method == "POST") {
+               if (response.stuid) {
+                  msg = `Hooray! The student details have been added to our records.<br>Assigned student ID  : ${response.stuid}`;
+               } else {
+                  msg =
+                     "Something went wrong while adding the student details. Please try again.";
+               }
             }
             displayNotificationMessage(sectionId, msg);
          },
@@ -491,8 +497,8 @@ $(document).ready(function () {
    ) {
       const $notFoundDiv = $(".notFound");
       $notFoundDiv.empty();
-      $notFoundDiv.append(` <h6 class="notFound d-flex align-items-center my-5">
-      <i class="fa-solid fa-circle-exclamation me-2 fa-2x"></i>
+      $notFoundDiv.append(` <h6 class="notFound d-flex align-items-center text-start my-5 fs-5">
+      <i class="fa-solid fa-circle-exclamation me-2 fa-3x"></i>
       ${msg}
    </h6>
       `);
@@ -534,7 +540,7 @@ $(document).ready(function () {
                "Hmmm... This is taking longer than expected.Please try again later."
             );
          }
-      }, 10000);
+      }, 5000);
    }
 
    function clearInputField(sectionId) {
@@ -550,7 +556,7 @@ $(document).ready(function () {
       const selectedInputField = "#" + sectionId + " " + ".searchField";
       setTimeout(function () {
          $(selectedInputField).focus();
-      }, 900);
+      }, 1000);
    }
 
    function showFormAddInfo(sectionId, student, stuid) {
@@ -618,7 +624,7 @@ $(document).ready(function () {
       const successDivId = `#${sectionId} .success`;
       $(successDivId).empty();
       const pElement = $("<p>")
-         .addClass("d-flex align-items-center py-3")
+         .addClass("d-flex align-items-center py-3 fs-5")
          .append(
             $("<i>").addClass("fa-solid fa-circle-exclamation me-2 fa-2x"),
             msg
@@ -627,7 +633,7 @@ $(document).ready(function () {
       $(successDivId).show();
       setTimeout(function () {
          hideSuccessMessage(sectionId);
-      }, 3000);
+      }, 4000);
    }
 
    function hideSuccessMessage(sectionId) {
