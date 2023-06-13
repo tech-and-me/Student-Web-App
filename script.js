@@ -221,18 +221,17 @@ $(document).ready(function () {
       hideStudentNotFoundOrNull();
       // hideSuccessMessage(sectionId);
 
+      setFocusOnSearchField(sectionIdOfSearchByName);
       //clear inputfield on clicked
       $(".searchField").click(function () {
          clearInputField(sectionIdOfSearchByName);
       });
 
-      setFocusOnSearchField(sectionIdOfSearchByName);
-
       $(".form-searchByName").submit(function (event) {
          event.preventDefault();
          //get search input
          let searchName = getSearchInput(sectionIdOfSearchByName);
-         if (searchName == null) {
+         if (searchName === null || searchName === "") {
             return;
          }
          console.log(
@@ -380,7 +379,10 @@ $(document).ready(function () {
    }
 
    function getSearchInput(sectionId) {
+      console.log("Inside getSearchInput");
+      console.log("sectionID is : " + sectionId);
       const searchInputSelector = `#${sectionId} .searchField`;
+      console.log("SearchInpuSelector is : " + searchInputSelector);
       let searchInput = $(searchInputSelector).val();
       console.log("Search input function return: " + searchInput);
       $(searchInputSelector).val("");
@@ -653,6 +655,20 @@ $(document).ready(function () {
 
    function clearFormAddInfo(sectionId) {
       const selectedFormId = `#${sectionId} .form-add-info`;
-      $(selectedFormId).find("input[type=text], input[type=number]").val("");
+      const inputFields = $(selectedFormId).find(
+         "input[type=text], input[type=number]"
+      );
+
+      // Check if any input field has a value
+      const hasValue = inputFields
+         .toArray()
+         .some((field) => field.value !== "");
+
+      if (!hasValue) {
+         return; // Return if there are no values in the input fields
+      }
+
+      // Clear the input fields
+      inputFields.val("");
    }
 }); //end of document.ready
